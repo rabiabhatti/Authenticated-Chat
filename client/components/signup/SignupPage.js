@@ -1,24 +1,15 @@
 import React from 'react'
-import App from '../App'
-import SignupForm from './SignupForm'
-import { connect } from 'react-redux'
-import { userSignupRequest } from '../../actions/signupActions'
 
-class SignupPage extends React.Component {
+import Wrapper from '../Wrapper'
+import SignUpForm from './SignupForm'
 
-  render() {
-    const { userSignupRequest } = this.props
+import '../../styles/unAuthApp.css'
 
-    return(
-        <App>
-          <SignupForm userSignupRequest={userSignupRequest} />
-        </App>
-    )
-  }
-}
-
-SignupPage.propTypes = {
-  userSignupRequest: React.PropTypes.func.isRequired
-}
-
-export default connect(null, { userSignupRequest })(SignupPage)
+export default () => (
+    <Wrapper>
+        <div className='auth-wrapper'>
+            <h1 className='signUp-heading'>Sign Up</h1>
+            <SignUpForm />
+        </div>
+    </Wrapper>
+)

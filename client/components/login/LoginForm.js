@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
     const { errors } = this.state
 
     return(
-        <form className='login-form'>
+        <form className='auth-form'>
           <input type="text" name="username" placeholder='Username' className='input' onChange={this.onChange.bind(this)} value={this.state.username} />
           {errors.username && <span className='error-msg'>{errors.username}</span>}
           <input type="password" name="password" placeholder='Password' className='input' onChange={this.onChange.bind(this)} value={this.state.password} />

@@ -1,9 +1,12 @@
 import React from 'react'
-import App from '../App'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import {userSignUpRequest} from "../../actions/signupActions"
 import validateInput from '../../../server/shared/validations/signup'
 
-class SignupForm extends React.Component {
+import '../../styles/unAuthApp.css'
+
+class SignUpForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -35,7 +38,7 @@ class SignupForm extends React.Component {
 
     if(this.isValid()) {
       this.setState({ errors: {}, isLoading: true })
-      this.props.userSignupRequest(this.state).then(
+      this.props.userSignUpRequest(this.state).then(
         () => {
           this.context.router.history.push('/user/profile')
         },
@@ -47,39 +50,27 @@ class SignupForm extends React.Component {
   render() {
     const { errors } = this.state
     return(
-        <div>
-          <h1>Welcome!</h1>
-          <form onSubmit={this.onSubmit.bind(this)}>
-            <lable>Username</lable>
-            <input type="text" name="username" onChange={this.onChange.bind(this)} value={this.state.username} />
-            <br />
-            {errors.username && <span>{errors.username}</span>}
-            <br />
-            <lable>Email</lable>
-            <input type="email" name="email" onChange={this.onChange.bind(this)} value={this.state.email} />
-            <br />
-            {errors.email && <span>{errors.email}</span>}
-            <br />
-            <lable>Password</lable>
-            <input type="password" name="password" onChange={this.onChange.bind(this)} value={this.state.password} />
-            <br />
-            {errors.password && <span>{errors.password}</span>}
-            <br />
-            <button disabled={this.state.isLoading}>Signup</button>
+          <form className='auth-form'>
+            <input type="text" name="username" className='input' placeholder='Username' onChange={this.onChange.bind(this)} value={this.state.username} />
+            {errors.username && <span className='error-msg'>{errors.username}</span>}
+            <input type="email" name="email" className='input' placeholder='Email' onChange={this.onChange.bind(this)} value={this.state.email} />
+            {errors.email && <span className='error-msg'>{errors.email}</span>}
+            <input type="password" name="password" className='input' placeholder='Password' onChange={this.onChange.bind(this)} value={this.state.password} />
+            {errors.password && <span className='error-msg'>{errors.password}</span>}
+            <button disabled={this.state.isLoading} onClick={this.onSubmit.bind(this)} className='button-purple auth-btn'>Sign Up</button>
           </form>
-        </div>
     )
   }
 }
 
-SignupForm.propTypes = {
-  userSignupRequest: React.PropTypes.func.isRequired
+SignUpForm.propTypes = {
+  userSignUpRequest: React.PropTypes.func.isRequired
 }
 
-SignupForm.contextTypes = {
+SignUpForm.contextTypes = {
   router: React.PropTypes.shape({
     history: React.PropTypes.object.isRequired,
   }),
 }
 
-export default SignupForm
+export default connect(null, { userSignUpRequest })(SignUpForm)

@@ -9,7 +9,7 @@ export default () => (
     <Wrapper>
         <div className='homeWrapper'>
             <button className='button-pink'><Link to="/login">Login</Link></button>
-            <button className='button-purple'><Link to="/signup">Sign up</Link></button>
+            <button className='button-purple'><Link to="/signUp">Sign up</Link></button>
         </div>
     </Wrapper>
 )

@@ -9,7 +9,7 @@ import Home from './components/Home'
 import Profile from './components/Profile'
 import ChatComponent from './components/ChatComponent'
 import LoginPage from './components/login/LoginPage'
-import SignupPage from './components/signup/SignupPage'
+import SignUpPage from './components/signup/SignupPage'
 
 import './styles/general.css'
 
@@ -26,7 +26,7 @@ render(
     <Router>
       <div>
         <Route exact path="/" component={Home} />
-        <Route path="/signup" component={SignupPage} />
+        <Route path="/signUp" component={SignUpPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/user/profile" component={Profile} />
         <Route path="/chat" component={ChatComponent} />
