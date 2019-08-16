@@ -29,7 +29,17 @@ export default {
           presets: [['es2015', { modules: false }], 'react'],
         },
       },
-      {test: /\.json$/, loader: "json-loader"}
+      {test: /\.json$/, loader: "json-loader"},
+      {
+        test: /\.css$/,
+        loader:'style!css!'
+      }
+    ],
+    rules:[
+      {
+        test:/\.css$/,
+        use:['style-loader','css-loader']
+      }
     ]
   },
   resolve: {
