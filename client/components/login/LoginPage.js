@@ -1,6 +1,9 @@
 import React from 'react'
+
+import Wrapper from '../Wrapper'
 import LoginForm from './LoginForm'
-import App from '../App'
+
+import '../../styles/unAuthApp.css'
 
 export default class LoginPage extends React.Component {
   constructor(props) {
@@ -9,10 +12,12 @@ export default class LoginPage extends React.Component {
 
   render() {
     return(
-        <App>
-          <h1>Login</h1>
-          <LoginForm />
-        </App>
+        <Wrapper>
+            <div className='login-wrapper'>
+                <h1 className='login-heading'>Login</h1>
+                <LoginForm />
+            </div>
+        </Wrapper>
     )
   }
 }

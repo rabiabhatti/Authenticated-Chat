@@ -1,8 +1,10 @@
 import React from 'react'
-import validateInput from '../../../server/shared/validations/login'
 import { connect } from 'react-redux'
-import { login } from '../../actions/login'
 
+import { login } from '../../actions/login'
+import validateInput from '../../../server/shared/validations/login'
+
+import '../../styles/unAuthApp.css'
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -47,22 +49,13 @@ class LoginForm extends React.Component {
     const { errors } = this.state
 
     return(
-        <div>
-          <form onSubmit={this.onSubmit.bind(this)}>
-            { errors.form && <div>{errors.form}</div> }
-            <lable>Username</lable>
-            <input type="text" name="username" onChange={this.onChange.bind(this)} value={this.state.username} />
-            <br />
-            {errors.username && <span>{errors.username}</span>}
-            <br />
-            <lable>Password</lable>
-            <input type="password" name="password" onChange={this.onChange.bind(this)} value={this.state.password} />
-            <br />
-            {errors.username && <span>{errors.username}</span>}
-            <br />
-            <button disabled={this.state.isLoading}>Login</button>
-          </form>
-        </div>
+        <form className='login-form'>
+          <input type="text" name="username" placeholder='Username' className='input' onChange={this.onChange.bind(this)} value={this.state.username} />
+          {errors.username && <span className='error-msg'>{errors.username}</span>}
+          <input type="password" name="password" placeholder='Password' className='input' onChange={this.onChange.bind(this)} value={this.state.password} />
+          {errors.username && <span className='error-msg'>{errors.password}</span>}
+          <button className='button-pink auth-btn' disabled={this.state.isLoading} onClick={this.onSubmit.bind(this)}>Login</button>
+        </form>
     )
   }
 }
