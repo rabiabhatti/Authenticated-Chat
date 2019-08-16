@@ -1,0 +1,32 @@
+.homeWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100vh;
+}
+.button-pink {
+    padding: 15px;
+    font-size: 16px;
+    border: 0;
+    border-radius: 28px;
+    color: #fff;
+    font-weight: 600;
+    margin: 20px 0;
+    background-color: #FC878E;
+}
+.button-purple {
+    padding: 15px;
+    font-size: 16px;
+    border: 0;
+    border-radius: 28px;
+    color: #fff;
+    font-weight: 600;
+    margin: 20px 0;
+    background-color: #8094ED;
+}
+button a {
+    width: 50%;
+    padding: 15px 66px;
+}

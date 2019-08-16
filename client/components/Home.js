@@ -1,16 +1,15 @@
 import React from 'react'
-import App from './App'
+import { Link } from 'react-router-dom'
 
-export default class Home extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+import Wrapper from './Wrapper'
 
-  render() {
-    return(
-        <App>
-          <h1>I am Home.</h1>
-        </App>
-    )
-  }
-}
+import '../styles/unAuthApp.css'
+
+export default () => (
+    <Wrapper>
+        <div className='homeWrapper'>
+            <button className='button-pink'><Link to="/login">Login</Link></button>
+            <button className='button-purple'><Link to="/signup">Sign up</Link></button>
+        </div>
+    </Wrapper>
+)
