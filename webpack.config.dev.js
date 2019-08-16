@@ -24,7 +24,10 @@ export default {
           path.join(__dirname, 'client'),
           path.join(__dirname, 'server/shared/')
         ],
-        loaders: [ 'react-hot-loader', 'babel-loader' ]
+        loaders: [ 'react-hot-loader', 'babel-loader' ],
+        options: {
+          presets: [['es2015', { modules: false }], 'react'],
+        },
       },
       {test: /\.json$/, loader: "json-loader"}
     ]

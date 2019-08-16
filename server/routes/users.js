@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
       let { username, password, email } = req.body;
       let password_code = bcrypt.hashSync(password, 10);
 
-      let newuser = new User({
+      new User({
         username, email, password: password_code,
       }).save()
       .then( newuser =>
