@@ -7,13 +7,11 @@ export function login(data) {
     axios.post('/api/login', data)
         .then((res) => {
           if (res.data.success) {
-              console.log('success', res.data.user)
             dispatch({
               type: LOGIN_SUCCESS,
               payload: res.data.user
             })
           } else if (res.data.errors) {
-              console.log('fail')
             dispatch({
               type: LOGIN_FAIL,
               payload: res.data.errors

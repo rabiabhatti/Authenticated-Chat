@@ -11,5 +11,5 @@ connection.on('disconnected', function() {
   console.log('disconnected to db')
 })
 connection.on('error', function(error) {
-  console.log('db connecton error', error)
+  console.log('db connection error', error)
 })

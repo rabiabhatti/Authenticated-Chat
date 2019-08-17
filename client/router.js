@@ -18,7 +18,7 @@ function PrivateRoute ({component: Component, auth}) {
     )
 }
 
-const Router = ({ isLoggedIn }) => console.log('isLoggedIn', isLoggedIn) || (
+const Router = ({ isLoggedIn }) => (
     <BrowserRouter>
         <div>
             <Switch>
@@ -32,4 +32,4 @@ const Router = ({ isLoggedIn }) => console.log('isLoggedIn', isLoggedIn) || (
     </BrowserRouter>
 )
 
-export default connect(({ user }) => console.log('user', user.user) || ({ isLoggedIn: !!user.user }))(Router)
+export default connect(({ user }) => ({ isLoggedIn: !!user.user }))(Router)
