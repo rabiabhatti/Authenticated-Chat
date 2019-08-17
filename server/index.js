@@ -10,11 +10,10 @@ import webpackMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 
 import main from './config/main'
-import auth from './routes/auth'
-import users from './routes/users'
+import login from './routes/login'
+import signUp from './routes/signUp'
 import logout from './routes/logout'
 import webpackConfig from '../webpack.config.dev'
-import sessionMiddleWare from './routes/sessionMiddleWare'
 
 const app = express()
 
@@ -23,7 +22,11 @@ const sessionInstance = session({
   secret: "my-secret",
   resave: true,
   autoSave:true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  // cookie: {
+  //   secure: true,
+  //   maxAge: 6000000000
+  // }
 })
 app.use(webpackMiddleware(compiler, {
   hot: true,
@@ -36,10 +39,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(sessionInstance)
 
-app.use('/api/signUp', users)
-app.use('/api/login', auth)
+app.use('/api/signUp', signUp)
+app.use('/api/login', login)
 app.use('/api/logout', logout)
-app.use('/api/me', sessionMiddleWare)
 
 mongoose.connect(main.database)
 
@@ -50,13 +52,15 @@ app.get('/*', (req, res) => {
 const io = socket(app.listen(3000, () => console.log('Running on localhost:3000')))
 
 let allMessages = []
-io.use(sharedSession(sessionInstance))
+io.use(sharedSession(sessionInstance, {
+  autoSave:true
+}))
 
 io.on("connection", function(socket) {
   console.log('We have a connection.')
   socket.on('new-message', function(msg) {
-    io.emit('receive-message', socket.handshake.session.username + ': ' + msg)
-    allMessages.push(socket.handshake.session.username + ': ' + msg)
+    io.emit('receive-message', msg)
+    allMessages.push(msg)
   })
 
   allMessages.forEach(msg => {

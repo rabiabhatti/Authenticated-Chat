@@ -27,17 +27,25 @@ class Chat extends React.Component {
   }
 
   submitMessage() {
-    let message = document.getElementById('message').value
-    this.state.socket.emit('new-message', message)
+    const msg = this.props.user + ':' + document.getElementById('message').value
+    this.state.socket.emit('new-message', msg)
   }
 
   render() {
-    let messages = this.state.messages.map((msg, index) => <p key={index} ><span>{msg}</span></p>)
+    let messages = this.state.messages.reverse().map((msg, index) => {
+      const fullMsg = msg.split(':')
+      return (
+          <li key={index} className={`${this.props.user === fullMsg[0] ? 'sent' : 'received'} msgWrapper`} >
+            <span className='user'>{fullMsg[0]}</span>
+            <span className='msg'>{fullMsg[1]}</span>
+          </li>
+      )
+    })
 
     return(
       <Wrapper>
         <button onClick={() => this.props.logout()} className='logoutBtn'>Logout</button>
-        <div className='messages'>{messages}</div>
+        <ul className='messages'>{messages}</ul>
         <div className='writeMsg'>
           <input className='chatInput' id="message" type="text" placeholder='Message...' />
           <button onClick={() => this.submitMessage()} className='sendBtn'>Send</button>
@@ -47,4 +55,8 @@ class Chat extends React.Component {
   }
 }
 
-export default connect(null, { logout })(Chat)
+function mapStateToProps({ user }) {
+  return { user: user.user };
+}
+
+export default connect(mapStateToProps, { logout })(Chat)

@@ -10,7 +10,6 @@ router.post('/', (req, res) => {
 
     User.findOne({username: username}, function (err, user) {
       if(err) {
-        console.log(err)
         return res.status(500).json({ errors: err })
       }
       if(user) {

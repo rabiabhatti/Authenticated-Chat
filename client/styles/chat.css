@@ -12,7 +12,7 @@
     padding: 1rem;
     color: #757575;
     font-size: 1rem;
-    border: 1px solid #0000000a;
+    border: 1px solid #0000001c;
     border-top-left-radius: 28px;
     border-bottom-left-radius: 28px;
 }
@@ -30,7 +30,7 @@
 .logoutBtn {
     top: 2%;
     border: 0;
-    right: 22%;
+    right: 2%;
     color: #fff;
     z-index: 11;
     padding: 15px;
@@ -42,8 +42,35 @@
     background-color: #8094ED;
 }
 .messages {
-    height: 80vh;
+    overflow-y : auto;
+    margin-top: 0;
     width: 100%;
+    padding-left: 0;
+    height: 100vh;
+    margin-bottom: 3rem;
     display: flex;
     flex-direction: column;
+}
+.msgWrapper {
+    color: #ffffff;
+    display: flex;
+    text-decoration: none;
+    flex-direction: column;
+    margin: 1rem;
+    align-items: flex-start;
+    border-radius: 5px;
+    padding: 1rem;
+}
+.sent {
+    align-self: flex-end;
+    background-color: #FC878E;
+}
+.received {
+    align-self: flex-start;
+    background-color: #8094ED;
+}
+.user {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
