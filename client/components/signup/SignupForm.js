@@ -21,7 +21,7 @@ class SignUpForm extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.user !== prevProps.user) {
-      this.context.router.history.push('/profile')
+      this.context.router.history.push('/chat')
     }
   }
 

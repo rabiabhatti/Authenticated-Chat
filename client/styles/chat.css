@@ -1,0 +1,49 @@
+.writeMsg {
+    bottom: 0;
+    width: 60%;
+    display: flex;
+    position: fixed;
+    flex-direction: row;
+    align-self: flex-end;
+}
+.chatInput {
+    margin: 0;
+    width: 85%;
+    padding: 1rem;
+    color: #757575;
+    font-size: 1rem;
+    border: 1px solid #0000000a;
+    border-top-left-radius: 28px;
+    border-bottom-left-radius: 28px;
+}
+.sendBtn {
+    width: 15%;
+    border: 0;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    border-top-right-radius: 28px;
+    border-bottom-right-radius: 28px;
+    background-color: #FC878E;
+}
+.logoutBtn {
+    top: 2%;
+    border: 0;
+    right: 22%;
+    color: #fff;
+    z-index: 11;
+    padding: 15px;
+    position: fixed;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 28px;
+    background-color: #8094ED;
+}
+.messages {
+    height: 80vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}

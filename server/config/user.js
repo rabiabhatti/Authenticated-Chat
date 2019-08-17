@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import main from './main'
 
 import uniqueValidator from 'mongoose-unique-validator'
 

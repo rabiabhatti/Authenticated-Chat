@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import Wrapper from './Wrapper'
 import {logout} from "../actions/auth";
 
+import '../styles/chat.css'
+
 class Chat extends React.Component {
 
   constructor(props) {
@@ -15,14 +17,13 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    let self = this
-    this.state.socket.on('receive-message', function(msg) {
-      let messages = self.state.messages
-      messages.push(msg)
-      self.setState({
-        messages: messages
-      })
-    })
+    this.state.socket.on('receive-message', (msg) => this.updateMessages(msg))
+  }
+
+  updateMessages(msg) {
+    this.setState(prevState => ({
+      messages: [...prevState.messages, msg]
+    }))
   }
 
   submitMessage() {
@@ -31,20 +32,16 @@ class Chat extends React.Component {
   }
 
   render() {
-    let i = 0
-    let messages = this.state.messages.map(function(msg) {
-      i++
-      return(
-        <li key={i} ><span>{msg}</span></li>
-      )
-    })
+    let messages = this.state.messages.map((msg, index) => <p key={index} ><span>{msg}</span></p>)
 
     return(
       <Wrapper>
-        <button onClick={() => this.props.logout()}>Logout</button>
-        <ul>{messages}</ul>
-        <input id="message" type="text" />
-        <button onClick={() => this.submitMessage()}>Send</button>
+        <button onClick={() => this.props.logout()} className='logoutBtn'>Logout</button>
+        <div className='messages'>{messages}</div>
+        <div className='writeMsg'>
+          <input className='chatInput' id="message" type="text" placeholder='Message...' />
+          <button onClick={() => this.submitMessage()} className='sendBtn'>Send</button>
+        </div>
       </Wrapper>
     )
   }

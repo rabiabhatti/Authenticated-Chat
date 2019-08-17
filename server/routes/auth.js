@@ -1,8 +1,7 @@
 import express from 'express'
-import validateInput from '../shared/validations/login'
 import bcrypt from 'bcrypt'
+
 import User from '../config/user'
-import session from 'express-session'
 
 let router = express.Router()
 
@@ -12,12 +11,12 @@ router.post('/', (req, res) => {
     User.findOne({username: username}, function (err, user) {
       if(err) {
         console.log(err)
-        return res.status(500).send()
+        return res.status(500).json({ errors: err })
       }
       if(user) {
         bcrypt.compare(password, user.password, function (err, isMatch) {
           if(err){
-           return res.status(500).json({ error: err })
+           return res.status(500).json({ errors: err })
           }
          if(isMatch) {
            req.session.username = user.username
