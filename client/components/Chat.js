@@ -1,7 +1,10 @@
 import React from 'react'
-import AuthApp from './AuthApp'
+import {connect} from "react-redux";
 
-export default class ChatComponent extends React.Component {
+import Wrapper from './Wrapper'
+import {logout} from "../actions/auth";
+
+class Chat extends React.Component {
 
   constructor(props) {
     super(props)
@@ -37,11 +40,14 @@ export default class ChatComponent extends React.Component {
     })
 
     return(
-      <AuthApp>
+      <Wrapper>
+        <button onClick={() => this.props.logout()}>Logout</button>
         <ul>{messages}</ul>
         <input id="message" type="text" />
         <button onClick={() => this.submitMessage()}>Send</button>
-      </AuthApp>
+      </Wrapper>
     )
   }
 }
+
+export default connect(null, { logout })(Chat)

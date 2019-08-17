@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import {userSignUpRequest} from "../../actions/signupActions"
+import { signUp } from '../../actions/auth'
 import validateInput from '../../../server/shared/validations/signup'
 
 import '../../styles/unAuthApp.css'
@@ -15,6 +16,12 @@ class SignUpForm extends React.Component {
       password: '',
       errors: {},
       isLoading: false
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.user !== prevProps.user) {
+      this.context.router.history.push('/profile')
     }
   }
 
@@ -38,12 +45,7 @@ class SignUpForm extends React.Component {
 
     if(this.isValid()) {
       this.setState({ errors: {}, isLoading: true })
-      this.props.userSignUpRequest(this.state).then(
-        () => {
-          this.context.router.history.push('/user/profile')
-        },
-        (err) => this.setState({ errors: err.response.data, isLoading: false })
-      )
+      this.props.signUp(this.state)
     }
   }
 
@@ -51,6 +53,7 @@ class SignUpForm extends React.Component {
     const { errors } = this.state
     return(
           <form className='auth-form'>
+            {this.props.error && <span className='error-msg'>{this.props.error}</span>}
             <input type="text" name="username" className='input' placeholder='Username' onChange={this.onChange.bind(this)} value={this.state.username} />
             {errors.username && <span className='error-msg'>{errors.username}</span>}
             <input type="email" name="email" className='input' placeholder='Email' onChange={this.onChange.bind(this)} value={this.state.email} />
@@ -63,14 +66,14 @@ class SignUpForm extends React.Component {
   }
 }
 
-SignUpForm.propTypes = {
-  userSignUpRequest: React.PropTypes.func.isRequired
-}
-
 SignUpForm.contextTypes = {
-  router: React.PropTypes.shape({
-    history: React.PropTypes.object.isRequired,
+  router: PropTypes.shape({
+    history: PropTypes.object.isRequired,
   }),
 }
 
-export default connect(null, { userSignUpRequest })(SignUpForm)
+function mapStateToProps({ user }) {
+  return { user: user.user, error: user.error };
+}
+
+export default connect(mapStateToProps, { signUp })(SignUpForm)

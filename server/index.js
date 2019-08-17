@@ -36,8 +36,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(sessionInstance)
 
-app.use('/api/users', users)
-app.use('/api/auth', auth)
+app.use('/api/signUp', users)
+app.use('/api/login', auth)
 app.use('/api/logout', logout)
 app.use('/api/me', sessionMiddleWare)
 

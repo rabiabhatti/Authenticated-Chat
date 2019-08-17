@@ -17,10 +17,10 @@ router.post('/', (req, res) => {
       new User({
         username, email, password: password_code,
       }).save()
-      .then( newuser =>
-        res.json({ success: true })
+      .then( newUser =>
+        res.json({ success: true, user: newUser.username })
       )
-      .catch(err => res.status(500).json({ error: err }))
+      .catch(err => res.status(500).json({ errors: err }))
     } else {
       res.status(400).json(errors);
     }

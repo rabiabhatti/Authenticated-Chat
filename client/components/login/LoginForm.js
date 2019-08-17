@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { login } from '../../actions/login'
+import { login } from '../../actions/auth'
 import validateInput from '../../../server/shared/validations/login'
 
 import '../../styles/unAuthApp.css'
@@ -14,6 +15,12 @@ class LoginForm extends React.Component {
       password: '',
       errors: {},
       isLoading: false
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.user !== prevProps.user) {
+      this.context.router.history.push('/profile')
     }
   }
 
@@ -32,16 +39,10 @@ class LoginForm extends React.Component {
     return isValid
   }
 
-  onSubmit(e) {
-    e.preventDefault()
+  onSubmit() {
     if(this.isValid()) {
       this.setState({ errors: {}, isLoading: true })
-      this.props.login(this.state).then(
-        () => {
-          this.context.router.history.push('/user/profile')
-        },
-        (err) => this.setState({ errors: err.response.data, isLoading: false })
-      )
+      this.props.login(this.state)
     }
   }
 
@@ -50,6 +51,7 @@ class LoginForm extends React.Component {
 
     return(
         <form className='auth-form'>
+          {this.props.error && <span className='error-msg'>{this.props.error}</span>}
           <input type="text" name="username" placeholder='Username' className='input' onChange={this.onChange.bind(this)} value={this.state.username} />
           {errors.username && <span className='error-msg'>{errors.username}</span>}
           <input type="password" name="password" placeholder='Password' className='input' onChange={this.onChange.bind(this)} value={this.state.password} />
@@ -60,14 +62,14 @@ class LoginForm extends React.Component {
   }
 }
 
-LoginForm.propTypes = {
-  login: React.PropTypes.func.isRequired
-}
-
 LoginForm.contextTypes = {
-  router: React.PropTypes.shape({
-    history: React.PropTypes.object.isRequired,
+  router: PropTypes.shape({
+    history: PropTypes.object.isRequired,
   }),
 }
 
-export default connect(null, { login })(LoginForm)
+function mapStateToProps({ user }) {
+  return { user: user.user, error: user.error };
+}
+
+export default connect(mapStateToProps, { login })(LoginForm)
