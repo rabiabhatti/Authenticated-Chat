@@ -35,7 +35,7 @@
     "json-loader": "^0.5.4",
     "jsonwebtoken": "^7.3.0",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "mongoose": "^4.9.2",
     "mongoose-beautiful-unique-validation": "^5.1.1",
     "mongoose-unique-validator": "^1.0.5",
