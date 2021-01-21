@@ -50,7 +50,7 @@
     "redux-thunk": "^2.2.0",
     "session.socket.io": "^0.2.1",
     "sessionstore": "^1.2.18",
-    "socket.io": "^1.7.3",
+    "socket.io": "^2.4.0",
     "socket.io-client": "^1.7.3",
     "validator": "^7.0.0",
     "webpack": "^1.12.13"
